@@ -8,7 +8,7 @@
     <meta property="og:title" content="AI活用タイプ診断 - あなたと相性最高のAIは？">
     <meta property="og:description" content="5つの質問であなたのAI活用タイプを診断！">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=2">
     {% if ga_id %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ ga_id }}');</script>
@@ -63,6 +63,6 @@
         window.questions = {{ questions | tojson }};
         window.answerOptions = {{ answer_options | tojson }};
     </script>
-    <script src="/static/js/quiz.js"></script>
+    <script src="/static/js/quiz.js?v=2"></script>
 </body>
 </html>
