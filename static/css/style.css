@@ -202,55 +202,130 @@ body.result-body {
     line-height: 1.5;
 }
 
-/* --- Likert Buttons (MBTI style) --- */
+/* --- Likert Buttons (MBTI style, 色の強弱で同意度を表現) --- */
 .likert-choices {
     display: flex;
     gap: 0.5rem;
     justify-content: center;
-    flex-wrap: wrap;
 }
 
 .likert-btn {
     flex: 1;
     min-width: 0;
-    background: #fff;
-    border: 2px solid #e2e8f0;
+    border: 2px solid transparent;
     border-radius: 14px;
-    padding: 0.85rem 0.5rem;
+    padding: 0.85rem 0.4rem;
     cursor: pointer;
     transition: all 0.2s ease;
     text-align: center;
-    font-size: 0.85rem;
-    font-weight: 600;
-    color: #475569;
+    font-size: 0.8rem;
+    font-weight: 700;
     line-height: 1.3;
 }
 
 .likert-btn:hover {
-    border-color: #a78bfa;
-    background: #faf5ff;
     transform: translateY(-2px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
+    box-shadow: 0 4px 12px rgba(0, 0, 0, 0.1);
 }
 
-.likert-btn:active {
-    transform: translateY(0);
-}
+.likert-btn:active { transform: translateY(0); }
 
 .likert-btn.selected {
-    border-color: #7c3aed;
-    background: linear-gradient(135deg, #7c3aed, #2563eb);
-    color: #fff;
-    box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
+    transform: scale(1.05);
+    box-shadow: 0 4px 16px rgba(0, 0, 0, 0.2);
+    filter: brightness(1.1);
 }
 
-/* First button (はい) slightly green tint */
-.likert-btn:first-child { border-color: #bbf7d0; }
-.likert-btn:first-child:hover { background: #f0fdf4; border-color: #4ade80; }
+/* あてはまる: 濃い緑 */
+.likert-0 { background: #10b981; color: #fff; border-color: #059669; }
+.likert-0:hover { background: #059669; }
 
-/* Last button (いいえ) slightly red tint */
-.likert-btn:last-child { border-color: #fecaca; }
-.likert-btn:last-child:hover { background: #fef2f2; border-color: #f87171; }
+/* ややあてはまる: 薄い緑 */
+.likert-1 { background: #d1fae5; color: #065f46; border-color: #a7f3d0; }
+.likert-1:hover { background: #a7f3d0; }
+
+/* あまりあてはまらない: 薄いグレー */
+.likert-2 { background: #f1f5f9; color: #64748b; border-color: #e2e8f0; }
+.likert-2:hover { background: #e2e8f0; }
+
+/* あてはまらない: グレー */
+.likert-3 { background: #cbd5e1; color: #334155; border-color: #94a3b8; }
+.likert-3:hover { background: #94a3b8; color: #fff; }
+
+/* --- Genre Selection --- */
+.genre-header {
+    text-align: center;
+    margin-bottom: 1.5rem;
+}
+
+.genre-hint {
+    font-size: 0.85rem;
+    color: #64748b;
+    margin-top: 0.5rem;
+}
+
+.genre-chips {
+    display: flex;
+    flex-wrap: wrap;
+    gap: 0.5rem;
+    justify-content: center;
+    margin-bottom: 1.25rem;
+}
+
+.genre-chip {
+    background: #f1f5f9;
+    border: 2px solid #e2e8f0;
+    border-radius: 100px;
+    padding: 0.6rem 1.1rem;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    cursor: pointer;
+    transition: all 0.2s ease;
+}
+
+.genre-chip:hover {
+    border-color: #a78bfa;
+    background: #faf5ff;
+    transform: translateY(-1px);
+}
+
+.genre-chip.active {
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: #fff;
+    border-color: #7c3aed;
+    box-shadow: 0 2px 8px rgba(124, 58, 237, 0.3);
+}
+
+.genre-counter {
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #7c3aed;
+    margin-bottom: 1.25rem;
+}
+
+.btn-genre-done {
+    display: block;
+    width: 100%;
+    max-width: 280px;
+    margin: 0 auto;
+    background: linear-gradient(135deg, #7c3aed, #2563eb);
+    color: #fff;
+    font-size: 1rem;
+    font-weight: 700;
+    padding: 0.9rem 2rem;
+    border: none;
+    border-radius: 100px;
+    cursor: pointer;
+    transition: all 0.3s ease;
+    box-shadow: 0 8px 24px rgba(124, 58, 237, 0.3);
+}
+
+.btn-genre-done:hover {
+    transform: translateY(-2px);
+    box-shadow: 0 12px 32px rgba(124, 58, 237, 0.4);
+}
 
 /* --- Loading Screen --- */
 .loading-content {
@@ -754,9 +829,14 @@ body.result-body {
     }
 
     .likert-btn {
-        padding: 0.75rem 0.35rem;
-        font-size: 0.8rem;
+        padding: 0.65rem 0.25rem;
+        font-size: 0.7rem;
         border-radius: 12px;
+    }
+
+    .genre-chip {
+        padding: 0.5rem 0.85rem;
+        font-size: 0.8rem;
     }
 
     .result-container {
