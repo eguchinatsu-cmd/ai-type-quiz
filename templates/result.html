@@ -45,13 +45,13 @@
             </h2>
             <div class="ai-cards">
                 {% for ai in result.recommended_ai %}
-                <div class="ai-card">
+                <a href="{{ ai.url }}" target="_blank" rel="noopener" class="ai-card" style="text-decoration: none; color: inherit;">
                     <div class="ai-card-number" style="background: {{ result.color }};">{{ loop.index }}</div>
                     <div class="ai-card-content">
                         <h3 class="ai-card-name">{{ ai.name }}</h3>
                         <p class="ai-card-desc">{{ ai.desc }}</p>
                     </div>
-                </div>
+                </a>
                 {% endfor %}
             </div>
         </div>

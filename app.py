@@ -83,9 +83,9 @@ RESULTS = {
         "color_light": "#dbeafe",
         "description": "あなたは日々の業務を効率化し、時間を最大限に活用したい実用主義者。AIを優秀な秘書として使いこなせば、ルーティン作業から解放されて本当に大事なことに集中できます！",
         "recommended_ai": [
-            {"name": "ChatGPT Plus", "desc": "メール・要約・議事録、何でもこなす万能選手"},
-            {"name": "Microsoft Copilot", "desc": "Office製品と連携して資料作成が爆速に"},
-            {"name": "Gemini Advanced", "desc": "テキスト・画像・動画もまとめて処理"},
+            {"name": "ChatGPT Plus", "desc": "メール・要約・議事録、何でもこなす万能選手", "url": "https://chatgpt.com/"},
+            {"name": "Microsoft Copilot", "desc": "Office製品と連携して資料作成が爆速に", "url": "https://copilot.microsoft.com/"},
+            {"name": "Gemini Advanced", "desc": "テキスト・画像・動画もまとめて処理", "url": "https://gemini.google.com/"},
         ],
         "prompts": [
             {"title": "メール作成", "text": "以下の内容でビジネスメールを作成してください。\n件名：○○の件\n宛先：取引先の担当者\n内容：納期を1週間延長してほしい\nトーン：丁寧だけど簡潔に"},
@@ -101,9 +101,9 @@ RESULTS = {
         "color_light": "#ede9fe",
         "description": "あなたは常に新しいものを生み出す情熱を持つクリエイター。AIを単なるツールではなく、創造的なパートナーとして活用すれば、アイデアも表現も無限に広がります！",
         "recommended_ai": [
-            {"name": "Claude 3", "desc": "長文の理解力が抜群。物語や企画書の骨子作りに最適"},
-            {"name": "ChatGPT Plus", "desc": "アイデア出しからコンテンツ生成まで幅広く対応"},
-            {"name": "Gemini Advanced", "desc": "画像生成AIとの連携で視覚的なアウトプットも"},
+            {"name": "Claude 3", "desc": "長文の理解力が抜群。物語や企画書の骨子作りに最適", "url": "https://claude.ai/"},
+            {"name": "ChatGPT Plus", "desc": "アイデア出しからコンテンツ生成まで幅広く対応", "url": "https://chatgpt.com/"},
+            {"name": "Gemini Advanced", "desc": "画像生成AIとの連携で視覚的なアウトプットも", "url": "https://gemini.google.com/"},
         ],
         "prompts": [
             {"title": "アイデア出し", "text": "「在宅ワーカー向けの新しいサブスクサービス」のアイデアを10個出してください。ありきたりでないユニークなものをお願いします。"},
@@ -119,9 +119,9 @@ RESULTS = {
         "color_light": "#d1fae5",
         "description": "あなたは知的好奇心が旺盛で、常に新しい知識を求める探求者。AIを頼れる専門家として活用すれば、膨大な情報から必要なものを瞬時に見つけ出し、深く分析できます！",
         "recommended_ai": [
-            {"name": "Perplexity AI", "desc": "Web検索+情報源表示で信頼性の高いリサーチに最適"},
-            {"name": "Gemini Advanced", "desc": "最新情報へのアクセスと詳細な回答が得意"},
-            {"name": "ChatGPT Plus (Browse)", "desc": "Web検索機能で幅広い情報を収集・整理"},
+            {"name": "Perplexity AI", "desc": "Web検索+情報源表示で信頼性の高いリサーチに最適", "url": "https://www.perplexity.ai/"},
+            {"name": "Gemini Advanced", "desc": "最新情報へのアクセスと詳細な回答が得意", "url": "https://gemini.google.com/"},
+            {"name": "ChatGPT Plus (Browse)", "desc": "Web検索機能で幅広い情報を収集・整理", "url": "https://chatgpt.com/"},
         ],
         "prompts": [
             {"title": "市場調査", "text": "日本の「AIチャットボット市場」について、最新のトレンド、主要プレイヤー、今後の成長予測をまとめてください。情報源も明記してください。"},
@@ -137,9 +137,9 @@ RESULTS = {
         "color_light": "#fef3c7",
         "description": "あなたは人との対話を大切にし、AIにも人間らしいコミュニケーションを求めます。AIを親しい相談相手として活用すれば、考えの整理やスキルアップの強力な味方になります！",
         "recommended_ai": [
-            {"name": "Claude 3", "desc": "自然で人間らしい対話が得意。共感的な応答が魅力"},
-            {"name": "ChatGPT Plus", "desc": "ロールプレイ機能が充実。練習相手に最適"},
-            {"name": "Pi (Personal AI)", "desc": "パーソナライズされた対話で寄り添ってくれる"},
+            {"name": "Claude 3", "desc": "自然で人間らしい対話が得意。共感的な応答が魅力", "url": "https://claude.ai/"},
+            {"name": "ChatGPT Plus", "desc": "ロールプレイ機能が充実。練習相手に最適", "url": "https://chatgpt.com/"},
+            {"name": "Pi (Personal AI)", "desc": "パーソナライズされた対話で寄り添ってくれる", "url": "https://pi.ai/"},
         ],
         "prompts": [
             {"title": "プレゼン練習", "text": "あなたは厳しめのクライアントです。私がプレゼンをするので、鋭い質問や指摘をしてください。プレゼン内容：[ここに概要を書く]"},
@@ -155,9 +155,9 @@ RESULTS = {
         "color_light": "#fee2e2",
         "description": "あなたは最先端技術に目を向け、AIの未知の可能性を探求する真のイノベーター。既存の枠にとらわれず、AIの限界に挑戦し、新しい活用法を生み出すパイオニアです！",
         "recommended_ai": [
-            {"name": "全てのAIを使い分け", "desc": "ChatGPT、Gemini、Claude、Perplexityを場面で使い分けるのが最強"},
-            {"name": "Claude Code / Cursor", "desc": "AIでコーディング。アプリやツールを自分で作れる"},
-            {"name": "Midjourney / Suno", "desc": "画像や音楽もAIで生成。クリエイティブの限界を超える"},
+            {"name": "全てのAIを使い分け", "desc": "ChatGPT、Gemini、Claude、Perplexityを場面で使い分けるのが最強", "url": "https://chatgpt.com/"},
+            {"name": "Claude Code / Cursor", "desc": "AIでコーディング。アプリやツールを自分で作れる", "url": "https://www.cursor.com/"},
+            {"name": "Midjourney / Suno", "desc": "画像や音楽もAIで生成。クリエイティブの限界を超える", "url": "https://www.midjourney.com/"},
         ],
         "prompts": [
             {"title": "ビジネスモデル考案", "text": "AI技術を活用した「ペット業界」の新しいビジネスモデルを5つ提案してください。実現可能性、収益モデル、ターゲット顧客も含めて。"},
