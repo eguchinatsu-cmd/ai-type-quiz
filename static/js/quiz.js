@@ -1,34 +1,25 @@
 /* ========================================
-   AI活用タイプ診断 - Quiz Logic (MBTI風)
+   AI活用タイプ診断 - Quiz Logic (MBTI風 + ジャンル選択)
    ======================================== */
 
 (function () {
     "use strict";
 
-    // --- State ---
     var currentQuestion = 0;
-    var scores = {
-        assistant: 0,
-        creator: 0,
-        researcher: 0,
-        partner: 0,
-        innovator: 0,
-    };
+    var scores = { assistant: 0, creator: 0, researcher: 0, partner: 0, innovator: 0 };
+    var selectedGenres = [];
     var isTransitioning = false;
 
-    // --- DOM Elements ---
     var startScreen = document.getElementById("start-screen");
     var quizScreen = document.getElementById("quiz-screen");
+    var genreScreen = document.getElementById("genre-screen");
     var loadingScreen = document.getElementById("loading-screen");
     var startBtn = document.getElementById("start-btn");
     var questionArea = document.getElementById("question-area");
     var progressFill = document.getElementById("progress-fill");
     var progressText = document.getElementById("progress-text");
 
-    // --- Init ---
-    if (startBtn) {
-        startBtn.addEventListener("click", startQuiz);
-    }
+    if (startBtn) startBtn.addEventListener("click", startQuiz);
 
     function startQuiz() {
         startScreen.classList.remove("active");
@@ -36,7 +27,6 @@
         renderQuestion(0);
     }
 
-    // --- Render Question (MBTI style) ---
     function renderQuestion(index) {
         if (!window.questions || index >= window.questions.length) return;
 
@@ -56,23 +46,20 @@
 
         for (var i = 0; i < opts.length; i++) {
             html +=
-                '<button class="likert-btn" data-score="' + opts[i].score + '">' +
+                '<button class="likert-btn likert-' + i + '" data-score="' + opts[i].score + '">' +
                 escapeHtml(opts[i].label) +
                 '</button>';
         }
 
         html += '  </div></div>';
-
         questionArea.innerHTML = html;
 
-        // Attach click handlers
         var buttons = questionArea.querySelectorAll(".likert-btn");
         for (var j = 0; j < buttons.length; j++) {
             buttons[j].addEventListener("click", onLikertClick);
         }
     }
 
-    // --- Likert Click Handler ---
     function onLikertClick(e) {
         if (isTransitioning) return;
         isTransitioning = true;
@@ -80,43 +67,70 @@
         var btn = e.currentTarget;
         var rawScore = parseInt(btn.getAttribute("data-score"), 10);
         var q = window.questions[currentQuestion];
-
-        // 逆転項目: スコアを反転 (3→0, 2→1, 1→2, 0→3)
         var score = q.reverse ? (3 - rawScore) : rawScore;
 
-        // Visual: mark selected
         btn.classList.add("selected");
-
-        // Accumulate score for the primary type
         scores[q.primary] += score;
 
-        // Wait, then advance
         setTimeout(function () {
             currentQuestion++;
-
             if (currentQuestion >= window.questions.length) {
-                showLoading();
+                showGenreScreen();
             } else {
                 transitionToNext();
             }
         }, 400);
     }
 
-    // --- Transition Animation ---
     function transitionToNext() {
         var wrapper = questionArea.querySelector(".question-wrapper");
-        if (wrapper) {
-            wrapper.classList.add("fade-out");
-        }
-
+        if (wrapper) wrapper.classList.add("fade-out");
         setTimeout(function () {
             renderQuestion(currentQuestion);
             isTransitioning = false;
         }, 250);
     }
 
-    // --- Loading & Redirect ---
+    /* --- Genre Selection --- */
+    function showGenreScreen() {
+        quizScreen.classList.remove("active");
+        if (genreScreen) {
+            genreScreen.classList.add("active");
+            initGenreChips();
+        } else {
+            showLoading();
+        }
+    }
+
+    function initGenreChips() {
+        var chips = document.querySelectorAll(".genre-chip");
+        var counter = document.getElementById("genre-counter");
+        var doneBtn = document.getElementById("genre-done-btn");
+
+        for (var i = 0; i < chips.length; i++) {
+            chips[i].addEventListener("click", function () {
+                var genre = this.getAttribute("data-genre");
+                if (this.classList.contains("active")) {
+                    this.classList.remove("active");
+                    selectedGenres = selectedGenres.filter(function (g) { return g !== genre; });
+                } else if (selectedGenres.length < 3) {
+                    this.classList.add("active");
+                    selectedGenres.push(genre);
+                }
+                counter.textContent = selectedGenres.length + " / 3 選択中";
+            });
+        }
+
+        if (doneBtn) {
+            doneBtn.addEventListener("click", function () {
+                showLoading();
+            });
+        }
+    }
+
+    /* --- Loading & Redirect --- */
     function showLoading() {
+        if (genreScreen) genreScreen.classList.remove("active");
         quizScreen.classList.remove("active");
         loadingScreen.classList.add("active");
 
@@ -130,11 +144,11 @@
                     maxType = types[i];
                 }
             }
-            window.location.href = "/result/" + maxType;
+            var genreParam = selectedGenres.length > 0 ? "?genres=" + encodeURIComponent(selectedGenres.join(",")) : "";
+            window.location.href = "/result/" + maxType + genreParam;
         }, 1500);
     }
 
-    // --- Utility ---
     function escapeHtml(str) {
         var div = document.createElement("div");
         div.appendChild(document.createTextNode(str));
@@ -164,10 +178,7 @@ function copyPrompt(button) {
         tmp.style.left = "-9999px";
         document.body.appendChild(tmp);
         tmp.select();
-        try {
-            document.execCommand("copy");
-            showCopied(button);
-        } catch (_) {}
+        try { document.execCommand("copy"); showCopied(button); } catch (_) {}
         document.body.removeChild(tmp);
     }
 }
@@ -178,7 +189,6 @@ function showCopied(button) {
     if (label) label.textContent = "OK!";
     if (icon) icon.textContent = "\u2714";
     button.classList.add("copied");
-
     setTimeout(function () {
         if (label) label.textContent = "\u30B3\u30D4\u30FC";
         if (icon) icon.textContent = "\uD83D\uDCCB";

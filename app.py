@@ -29,13 +29,45 @@ QUESTIONS = [
     {"id": 10, "text": "世の中の「当たり前」に疑問を感じることが多い", "primary": "innovator", "reverse": False},
 ]
 
-# MBTI風4段階の回答選択肢と配点
+# 4段階の回答選択肢と配点
 ANSWER_OPTIONS = [
-    {"label": "はい", "score": 3},
-    {"label": "ちょっとはい", "score": 2},
-    {"label": "ちょっといいえ", "score": 1},
-    {"label": "いいえ", "score": 0},
+    {"label": "あてはまる", "score": 3},
+    {"label": "ややあてはまる", "score": 2},
+    {"label": "あまりあてはまらない", "score": 1},
+    {"label": "あてはまらない", "score": 0},
 ]
+
+# ジャンル選択肢（9〜12個、チップ形式で表示）
+GENRES = [
+    "記事・ブログ作成", "SNS運用", "収益化・副業",
+    "画像・デザイン生成", "動画編集", "プログラミング",
+    "語学・翻訳", "ビジネス効率化", "データ分析",
+    "ゲーム・アプリ開発", "音楽・作曲", "勉強・資格対策",
+]
+
+# タイプ別プロンプトテンプレート（{genre}がジャンルに置換される）
+PROMPT_TEMPLATES = {
+    "assistant": {
+        "persona": "最強の右腕AI秘書",
+        "template": "あなたはプロの{genre}アシスタントです。以下のタスクを「手順書レベル」で具体的に分解してください。\n\n■ タスク: {genre}を始めたいが、何から手をつければいいかわからない\n■ 条件: 初心者向け、1日30分の作業量、1週間で成果が出るプラン\n■ 出力形式: Day1〜Day7のステップ + 各日の具体的アクション",
+    },
+    "creator": {
+        "persona": "天才クリエイティブディレクター",
+        "template": "あなたは{genre}の天才クリエイティブディレクターです。以下のテーマで「思わずシェアしたくなる」コンテンツのアイデアを5つ出してください。\n\n■ テーマ: {genre}\n■ ターゲット: 20〜30代、SNSをよく使う層\n■ 条件: ありきたりNG、「え、こんな切り口！？」と思わせるもの\n■ 各アイデアに「バズるポイント」も一言添えて",
+    },
+    "researcher": {
+        "persona": "鋭い洞察力のAI探偵",
+        "template": "あなたは鋭い洞察力を持つAI探偵です。{genre}において、多くの人が見落としている「隠れた真実」を3つ発見してください。\n\n■ 分析対象: {genre}の最新トレンドと落とし穴\n■ 条件: データや根拠を示しつつ、初心者にもわかる言葉で\n■ 出力: 各発見に「だから○○すべき」という具体的アクションも添えて",
+    },
+    "partner": {
+        "persona": "あなた専属のAIコーチ",
+        "template": "あなたは優しくも的確な{genre}の専属コーチです。私は{genre}に興味はあるけど、なかなか一歩が踏み出せません。\n\n■ まず私の不安を聞いて、共感してください\n■ その上で「最初の一歩」を3つ提案してください\n■ 各提案に「これならできそう！」と思える難易度の説明を添えて\n■ 最後に背中を押すような一言をお願いします",
+    },
+    "innovator": {
+        "persona": "常識を壊すAIハッカー",
+        "template": "あなたは常識を壊すAIハッカーです。{genre}の「当たり前」を破壊する革新的な方法を3つ提案してください。\n\n■ テーマ: {genre}をAIで10倍効率化する\n■ 条件: 既存ツールの組み合わせで今すぐ実現可能なもの\n■ 各提案に: 使うツール名 + 具体的な手順 + 予想される効果\n■ 最後に「これを知ってるのは上位1%だけ」的な裏技を1つ",
+    },
+}
 
 RESULTS = {
     "assistant": {
@@ -133,7 +165,7 @@ RESULTS = {
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse(name="index.html", request=request, context={"questions": QUESTIONS, "answer_options": ANSWER_OPTIONS, "ga_id": GA_MEASUREMENT_ID})
+    return templates.TemplateResponse(name="index.html", request=request, context={"questions": QUESTIONS, "answer_options": ANSWER_OPTIONS, "genres": GENRES, "ga_id": GA_MEASUREMENT_ID})
 
 
 @app.get("/privacy", response_class=HTMLResponse)
@@ -147,11 +179,27 @@ async def terms(request: Request):
 
 
 @app.get("/result/{type_id}", response_class=HTMLResponse)
-async def result(request: Request, type_id: str):
+async def result(request: Request, type_id: str, genres: str = ""):
     result_data = RESULTS.get(type_id)
     if not result_data:
         result_data = RESULTS["assistant"]
-    return templates.TemplateResponse(name="result.html", request=request, context={"result": result_data, "ga_id": GA_MEASUREMENT_ID})
+
+    # ジャンルからパーソナライズプロンプト生成
+    selected_genres = [g for g in genres.split(",") if g] if genres else []
+    tmpl = PROMPT_TEMPLATES.get(type_id, PROMPT_TEMPLATES["assistant"])
+    personalized_prompts = []
+    for genre in selected_genres[:3]:
+        personalized_prompts.append({
+            "genre": genre,
+            "persona": tmpl["persona"],
+            "text": tmpl["template"].replace("{genre}", genre),
+        })
+
+    return templates.TemplateResponse(name="result.html", request=request, context={
+        "result": result_data,
+        "personalized_prompts": personalized_prompts,
+        "ga_id": GA_MEASUREMENT_ID,
+    })
 
 
 if __name__ == "__main__":

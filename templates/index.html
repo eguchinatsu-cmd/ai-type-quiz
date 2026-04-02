@@ -4,11 +4,11 @@
     <meta charset="UTF-8">
     <meta name="viewport" content="width=device-width, initial-scale=1.0">
     <title>AI活用タイプ診断 - あなたと相性最高のAIは？</title>
-    <meta name="description" content="5つの質問であなたのAI活用タイプを診断。おすすめのAIツールとすぐに使えるプロンプトがわかる！">
+    <meta name="description" content="10の質問であなたのAI活用タイプを診断。おすすめのAIツールとすぐに使えるプロンプトがわかる！">
     <meta property="og:title" content="AI活用タイプ診断 - あなたと相性最高のAIは？">
-    <meta property="og:description" content="5つの質問であなたのAI活用タイプを診断！">
+    <meta property="og:description" content="10の質問であなたのAI活用タイプを診断！">
     <meta property="og:type" content="website">
-    <link rel="stylesheet" href="/static/css/style.css?v=2">
+    <link rel="stylesheet" href="/static/css/style.css?v=3">
     {% if ga_id %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ ga_id }}');</script>
@@ -34,7 +34,7 @@
                 <div class="progress-bar">
                     <div id="progress-fill" class="progress-fill"></div>
                 </div>
-                <div id="progress-text" class="progress-text">1 / 5</div>
+                <div id="progress-text" class="progress-text">1 / 10</div>
             </div>
 
             <div id="question-area" class="question-area">
@@ -42,11 +42,29 @@
             </div>
         </div>
 
+        <!-- Genre Selection Screen -->
+        <div id="genre-screen" class="screen">
+            <div class="question-area">
+                <div class="genre-header">
+                    <div class="question-number">LAST</div>
+                    <h2 class="question-text">結果を見る前に...！<br>AIを使いこなしたい分野を教えてね</h2>
+                    <p class="genre-hint">あなた専用のプロンプトを作るよ（最大3つ、1つでもOK）</p>
+                </div>
+                <div id="genre-chips" class="genre-chips">
+                    {% for genre in genres %}
+                    <button class="genre-chip" data-genre="{{ genre }}">{{ genre }}</button>
+                    {% endfor %}
+                </div>
+                <div id="genre-counter" class="genre-counter">0 / 3 選択中</div>
+                <button id="genre-done-btn" class="btn-genre-done">結果を見る</button>
+            </div>
+        </div>
+
         <!-- Loading Screen -->
         <div id="loading-screen" class="screen">
             <div class="loading-content">
                 <div class="loading-spinner"></div>
-                <p class="loading-text">あなたのタイプを分析中...</p>
+                <p class="loading-text">あなただけのプロンプトを作成中...</p>
             </div>
         </div>
     </div>
@@ -63,6 +81,6 @@
         window.questions = {{ questions | tojson }};
         window.answerOptions = {{ answer_options | tojson }};
     </script>
-    <script src="/static/js/quiz.js?v=2"></script>
+    <script src="/static/js/quiz.js?v=3"></script>
 </body>
 </html>
