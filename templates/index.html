@@ -1,0 +1,63 @@
+<!DOCTYPE html>
+<html lang="ja">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>AI活用タイプ診断 - あなたと相性最高のAIは？</title>
+    <meta name="description" content="5つの質問であなたのAI活用タイプを診断。おすすめのAIツールとすぐに使えるプロンプトがわかる！">
+    <meta property="og:title" content="AI活用タイプ診断 - あなたと相性最高のAIは？">
+    <meta property="og:description" content="5つの質問であなたのAI活用タイプを診断！">
+    <meta property="og:type" content="website">
+    <link rel="stylesheet" href="/static/css/style.css">
+</head>
+<body>
+    <div class="quiz-container">
+        <!-- Hero / Start Screen -->
+        <div id="start-screen" class="screen active">
+            <div class="hero">
+                <div class="hero-badge">AI診断</div>
+                <h1 class="hero-title">AI活用タイプ診断</h1>
+                <p class="hero-subtitle">あなたと相性最高のAIは？</p>
+                <p class="hero-desc">たった5問の質問に答えるだけで、<br>あなたにぴったりのAI活用スタイルがわかります。</p>
+                <button id="start-btn" class="btn-start">診断をはじめる</button>
+                <p class="hero-time">所要時間：約1分</p>
+            </div>
+        </div>
+
+        <!-- Quiz Screen -->
+        <div id="quiz-screen" class="screen">
+            <div class="progress-wrapper">
+                <div class="progress-bar">
+                    <div id="progress-fill" class="progress-fill"></div>
+                </div>
+                <div id="progress-text" class="progress-text">1 / 5</div>
+            </div>
+
+            <div id="question-area" class="question-area">
+                <!-- Questions rendered by JS -->
+            </div>
+        </div>
+
+        <!-- Loading Screen -->
+        <div id="loading-screen" class="screen">
+            <div class="loading-content">
+                <div class="loading-spinner"></div>
+                <p class="loading-text">あなたのタイプを分析中...</p>
+            </div>
+        </div>
+    </div>
+
+    <footer class="footer footer-quiz">
+        <div class="footer-links">
+            <a href="/privacy">プライバシーポリシー</a>
+            <span class="footer-separator">|</span>
+            <a href="/terms">利用規約</a>
+        </div>
+    </footer>
+
+    <script>
+        window.questions = {{ questions | tojson }};
+    </script>
+    <script src="/static/js/quiz.js"></script>
+</body>
+</html>
