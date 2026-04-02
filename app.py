@@ -17,16 +17,16 @@ GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "")
 
 # --- 診断データ ---
 QUESTIONS = [
-    {"id": 1, "text": "やることリストを作るとスッキリする", "primary": "assistant", "reverse": False},
-    {"id": 2, "text": "SNSに載せる写真や文章にはこだわりたい", "primary": "creator", "reverse": False},
-    {"id": 3, "text": "気になったらとことん調べないと気が済まない", "primary": "researcher", "reverse": False},
-    {"id": 4, "text": "「聞き上手だね」って言われたことがある", "primary": "partner", "reverse": False},
-    {"id": 5, "text": "不便な仕組みを見ると、自動化できないか考えちゃう", "primary": "innovator", "reverse": False},
-    {"id": 6, "text": "マニュアル通りに進めると安心する", "primary": "assistant", "reverse": False},
-    {"id": 7, "text": "「それ面白いね！」って言われると最高にうれしい", "primary": "creator", "reverse": False},
-    {"id": 8, "text": "Wikipediaのリンクをたどって気づいたら1時間経ってた、はあるある", "primary": "researcher", "reverse": False},
-    {"id": 9, "text": "人の気持ちに興味がないと言われたことがある", "primary": "partner", "reverse": True},
-    {"id": 10, "text": "世の中の「当たり前」に疑問を感じることが多い", "primary": "innovator", "reverse": False},
+    {"id": 1, "text": "予定を立てるときは、分刻みでバッチリ決めたい", "primary": "assistant", "reverse": False},
+    {"id": 2, "text": "写真の加工やリール作成は、つい時間を忘れてこだわっちゃう", "primary": "creator", "reverse": False},
+    {"id": 3, "text": "話題のスポットでも、行列に並んでまで行くのは正直しんどい", "primary": "innovator", "reverse": True},
+    {"id": 4, "text": "気になるコスメやお店は、口コミを何サイトも見比べないと気が済まない", "primary": "researcher", "reverse": False},
+    {"id": 5, "text": "人の話を聞くときは、解決策よりも「共感」が大事だと思う", "primary": "partner", "reverse": False},
+    {"id": 6, "text": "マニュアルや説明書を読むより、とりあえず触って覚えたい派だ", "primary": "assistant", "reverse": True},
+    {"id": 7, "text": "周りの人が「良い」と言っているものより、誰も知らない新しいものを見つけたい", "primary": "innovator", "reverse": False},
+    {"id": 8, "text": "完成されたものを見るより「どうやって作られているか」の裏側が気になる", "primary": "researcher", "reverse": False},
+    {"id": 9, "text": "映画やドラマを観て、登場人物に感情移入して泣くことはあまりない", "primary": "partner", "reverse": True},
+    {"id": 10, "text": "自分の考えを言葉にするより、絵や図、写真で見せる方が得意だ", "primary": "creator", "reverse": False},
 ]
 
 # 4段階の回答選択肢と配点
