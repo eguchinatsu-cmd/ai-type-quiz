@@ -7,3 +7,5 @@ services:
     envVars:
       - key: PYTHON_VERSION
         value: "3.12"
+      - key: GA_MEASUREMENT_ID
+        value: "G-YCJX82FD05"

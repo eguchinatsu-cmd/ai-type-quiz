@@ -12,6 +12,9 @@ app = FastAPI(title="AI活用タイプ診断")
 app.mount("/static", StaticFiles(directory=BASE_DIR / "static"), name="static")
 templates = Jinja2Templates(directory=BASE_DIR / "templates")
 
+import os
+GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "")
+
 # --- 診断データ ---
 QUESTIONS = [
     {
@@ -167,17 +170,17 @@ RESULTS = {
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse(name="index.html", request=request, context={"questions": QUESTIONS})
+    return templates.TemplateResponse(name="index.html", request=request, context={"questions": QUESTIONS, "ga_id": GA_MEASUREMENT_ID})
 
 
 @app.get("/privacy", response_class=HTMLResponse)
 async def privacy(request: Request):
-    return templates.TemplateResponse(name="privacy.html", request=request)
+    return templates.TemplateResponse(name="privacy.html", request=request, context={"ga_id": GA_MEASUREMENT_ID})
 
 
 @app.get("/terms", response_class=HTMLResponse)
 async def terms(request: Request):
-    return templates.TemplateResponse(name="terms.html", request=request)
+    return templates.TemplateResponse(name="terms.html", request=request, context={"ga_id": GA_MEASUREMENT_ID})
 
 
 @app.get("/result/{type_id}", response_class=HTMLResponse)
@@ -185,7 +188,7 @@ async def result(request: Request, type_id: str):
     result_data = RESULTS.get(type_id)
     if not result_data:
         result_data = RESULTS["assistant"]
-    return templates.TemplateResponse(name="result.html", request=request, context={"result": result_data})
+    return templates.TemplateResponse(name="result.html", request=request, context={"result": result_data, "ga_id": GA_MEASUREMENT_ID})
 
 
 if __name__ == "__main__":
