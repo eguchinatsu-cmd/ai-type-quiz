@@ -22,7 +22,7 @@
                 <div class="hero-badge">AI診断</div>
                 <h1 class="hero-title">AI活用タイプ診断</h1>
                 <p class="hero-subtitle">あなたと相性最高のAIは？</p>
-                <p class="hero-desc">たった5問の質問に答えるだけで、<br>あなたにぴったりのAI活用スタイルがわかります。</p>
+                <p class="hero-desc">10個の質問に直感で答えるだけで、<br>あなたにぴったりのAI活用スタイルがわかります。</p>
                 <button id="start-btn" class="btn-start">診断をはじめる</button>
                 <p class="hero-time">所要時間：約1分</p>
             </div>
@@ -61,6 +61,7 @@
 
     <script>
         window.questions = {{ questions | tojson }};
+        window.answerOptions = {{ answer_options | tojson }};
     </script>
     <script src="/static/js/quiz.js"></script>
 </body>

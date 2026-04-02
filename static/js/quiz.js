@@ -1,29 +1,29 @@
 /* ========================================
-   AI活用タイプ診断 - Quiz Logic
+   AI活用タイプ診断 - Quiz Logic (MBTI風)
    ======================================== */
 
 (function () {
     "use strict";
 
     // --- State ---
-    let currentQuestion = 0;
-    const scores = {
+    var currentQuestion = 0;
+    var scores = {
         assistant: 0,
         creator: 0,
         researcher: 0,
         partner: 0,
         innovator: 0,
     };
-    let isTransitioning = false;
+    var isTransitioning = false;
 
     // --- DOM Elements ---
-    const startScreen = document.getElementById("start-screen");
-    const quizScreen = document.getElementById("quiz-screen");
-    const loadingScreen = document.getElementById("loading-screen");
-    const startBtn = document.getElementById("start-btn");
-    const questionArea = document.getElementById("question-area");
-    const progressFill = document.getElementById("progress-fill");
-    const progressText = document.getElementById("progress-text");
+    var startScreen = document.getElementById("start-screen");
+    var quizScreen = document.getElementById("quiz-screen");
+    var loadingScreen = document.getElementById("loading-screen");
+    var startBtn = document.getElementById("start-btn");
+    var questionArea = document.getElementById("question-area");
+    var progressFill = document.getElementById("progress-fill");
+    var progressText = document.getElementById("progress-text");
 
     // --- Init ---
     if (startBtn) {
@@ -36,61 +36,59 @@
         renderQuestion(0);
     }
 
-    // --- Render Question ---
+    // --- Render Question (MBTI style) ---
     function renderQuestion(index) {
         if (!window.questions || index >= window.questions.length) return;
 
-        const q = window.questions[index];
-        const pct = ((index + 1) / window.questions.length) * 100;
+        var q = window.questions[index];
+        var opts = window.answerOptions;
+        var total = window.questions.length;
+        var pct = ((index + 1) / total) * 100;
 
         progressFill.style.width = pct + "%";
-        progressText.textContent = (index + 1) + " / " + window.questions.length;
+        progressText.textContent = (index + 1) + " / " + total;
 
-        const html =
+        var html =
             '<div class="question-wrapper">' +
             '  <div class="question-number">Q' + q.id + '</div>' +
             '  <h2 class="question-text">' + escapeHtml(q.text) + '</h2>' +
-            '  <div class="choices">' +
-            q.choices
-                .map(function (c, i) {
-                    return (
-                        '<button class="choice-btn" data-index="' + i + '">' +
-                        '  <span class="choice-label">' + c.label + '</span>' +
-                        '  <span class="choice-text">' + escapeHtml(c.text) + '</span>' +
-                        '</button>'
-                    );
-                })
-                .join("") +
-            '  </div>' +
-            '</div>';
+            '  <div class="likert-choices">';
+
+        for (var i = 0; i < opts.length; i++) {
+            html +=
+                '<button class="likert-btn" data-score="' + opts[i].score + '">' +
+                escapeHtml(opts[i].label) +
+                '</button>';
+        }
+
+        html += '  </div></div>';
 
         questionArea.innerHTML = html;
 
         // Attach click handlers
-        var buttons = questionArea.querySelectorAll(".choice-btn");
+        var buttons = questionArea.querySelectorAll(".likert-btn");
         for (var j = 0; j < buttons.length; j++) {
-            buttons[j].addEventListener("click", onChoiceClick);
+            buttons[j].addEventListener("click", onLikertClick);
         }
     }
 
-    // --- Choice Click Handler ---
-    function onChoiceClick(e) {
+    // --- Likert Click Handler ---
+    function onLikertClick(e) {
         if (isTransitioning) return;
         isTransitioning = true;
 
         var btn = e.currentTarget;
-        var choiceIndex = parseInt(btn.getAttribute("data-index"), 10);
+        var rawScore = parseInt(btn.getAttribute("data-score"), 10);
         var q = window.questions[currentQuestion];
-        var choice = q.choices[choiceIndex];
+
+        // 逆転項目: スコアを反転 (3→0, 2→1, 1→2, 0→3)
+        var score = q.reverse ? (3 - rawScore) : rawScore;
 
         // Visual: mark selected
         btn.classList.add("selected");
 
-        // Accumulate scores
-        var types = Object.keys(choice.scores);
-        for (var i = 0; i < types.length; i++) {
-            scores[types[i]] += choice.scores[types[i]];
-        }
+        // Accumulate score for the primary type
+        scores[q.primary] += score;
 
         // Wait, then advance
         setTimeout(function () {
@@ -101,7 +99,7 @@
             } else {
                 transitionToNext();
             }
-        }, 500);
+        }, 400);
     }
 
     // --- Transition Animation ---
@@ -114,7 +112,7 @@
         setTimeout(function () {
             renderQuestion(currentQuestion);
             isTransitioning = false;
-        }, 300);
+        }, 250);
     }
 
     // --- Loading & Redirect ---
@@ -152,7 +150,6 @@ function copyPrompt(button) {
     var text = button.getAttribute("data-text");
     if (!text) return;
 
-    // Decode HTML entities
     var tmp = document.createElement("textarea");
     tmp.innerHTML = text;
     var decoded = tmp.value;
@@ -162,7 +159,6 @@ function copyPrompt(button) {
             showCopied(button);
         });
     } else {
-        // Fallback
         tmp.value = decoded;
         tmp.style.position = "fixed";
         tmp.style.left = "-9999px";
@@ -171,9 +167,7 @@ function copyPrompt(button) {
         try {
             document.execCommand("copy");
             showCopied(button);
-        } catch (_) {
-            // silent fail
-        }
+        } catch (_) {}
         document.body.removeChild(tmp);
     }
 }

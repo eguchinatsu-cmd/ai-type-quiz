@@ -17,67 +17,30 @@ GA_MEASUREMENT_ID = os.environ.get("GA_MEASUREMENT_ID", "")
 
 # --- 診断データ ---
 QUESTIONS = [
-    {
-        "id": 1,
-        "text": "AIに一番期待することは？",
-        "choices": [
-            {"label": "A", "text": "めんどくさい作業を自動化して時間を節約したい", "scores": {"assistant": 3, "creator": 0, "researcher": 0, "partner": 0, "innovator": 1}},
-            {"label": "B", "text": "新しいアイデアや企画の壁打ち相手になってほしい", "scores": {"assistant": 0, "creator": 3, "researcher": 0, "partner": 1, "innovator": 0}},
-            {"label": "C", "text": "知りたい情報を素早く正確にまとめてほしい", "scores": {"assistant": 1, "creator": 0, "researcher": 3, "partner": 0, "innovator": 0}},
-            {"label": "D", "text": "複雑な問題解決やアドバイスがほしい", "scores": {"assistant": 0, "creator": 0, "researcher": 1, "partner": 3, "innovator": 0}},
-            {"label": "E", "text": "文章・画像・コードなど、一緒にモノづくりしたい", "scores": {"assistant": 0, "creator": 1, "researcher": 0, "partner": 0, "innovator": 3}},
-        ],
-    },
-    {
-        "id": 2,
-        "text": "AIを使う上で一番大事にしたいことは？",
-        "choices": [
-            {"label": "A", "text": "スピードと正確さ。とにかく速く、ミスなく", "scores": {"assistant": 3, "creator": 0, "researcher": 1, "partner": 0, "innovator": 0}},
-            {"label": "B", "text": "柔軟な発想とクリエイティブな刺激", "scores": {"assistant": 0, "creator": 3, "researcher": 0, "partner": 1, "innovator": 0}},
-            {"label": "C", "text": "信頼できる情報と深い分析力", "scores": {"assistant": 0, "creator": 0, "researcher": 3, "partner": 0, "innovator": 1}},
-            {"label": "D", "text": "自分の意図をちゃんと理解してくれること", "scores": {"assistant": 1, "creator": 0, "researcher": 0, "partner": 3, "innovator": 0}},
-            {"label": "E", "text": "最新技術やトレンドへの対応力", "scores": {"assistant": 0, "creator": 1, "researcher": 0, "partner": 0, "innovator": 3}},
-        ],
-    },
-    {
-        "id": 3,
-        "text": "AIとの理想の関係は？",
-        "choices": [
-            {"label": "A", "text": "優秀な秘書。指示すれば完璧にこなしてくれる", "scores": {"assistant": 3, "creator": 0, "researcher": 0, "partner": 0, "innovator": 1}},
-            {"label": "B", "text": "刺激的な共同制作者。一緒に新しいものを作る", "scores": {"assistant": 0, "creator": 3, "researcher": 0, "partner": 1, "innovator": 0}},
-            {"label": "C", "text": "頼れる専門家。疑問に答えて解決策を出してくれる", "scores": {"assistant": 0, "creator": 0, "researcher": 3, "partner": 0, "innovator": 0}},
-            {"label": "D", "text": "親しい友人。気軽に話せて的確なアドバイスをくれる", "scores": {"assistant": 0, "creator": 0, "researcher": 0, "partner": 3, "innovator": 0}},
-            {"label": "E", "text": "最強の相棒。どんな困難も一緒に乗り越える", "scores": {"assistant": 0, "creator": 1, "researcher": 0, "partner": 0, "innovator": 3}},
-        ],
-    },
-    {
-        "id": 4,
-        "text": "AIをどんな場面で使いたい？",
-        "choices": [
-            {"label": "A", "text": "メール作成、資料の要約、議事録作成", "scores": {"assistant": 3, "creator": 0, "researcher": 1, "partner": 0, "innovator": 0}},
-            {"label": "B", "text": "ブログのネタ出し、キャッチコピー、企画書づくり", "scores": {"assistant": 0, "creator": 3, "researcher": 0, "partner": 0, "innovator": 1}},
-            {"label": "C", "text": "市場調査、競合分析、論文の要約、勉強", "scores": {"assistant": 0, "creator": 0, "researcher": 3, "partner": 0, "innovator": 0}},
-            {"label": "D", "text": "プレゼン練習、ブレスト、悩み相談", "scores": {"assistant": 0, "creator": 0, "researcher": 0, "partner": 3, "innovator": 0}},
-            {"label": "E", "text": "プログラミング、デザイン、動画編集の補助", "scores": {"assistant": 0, "creator": 1, "researcher": 0, "partner": 0, "innovator": 3}},
-        ],
-    },
-    {
-        "id": 5,
-        "text": "AIとの会話スタイルは？",
-        "choices": [
-            {"label": "A", "text": "指示は明確に、簡潔に。無駄なく効率的に", "scores": {"assistant": 3, "creator": 0, "researcher": 0, "partner": 0, "innovator": 1}},
-            {"label": "B", "text": "ふわっとした問いかけから対話でアイデアを広げたい", "scores": {"assistant": 0, "creator": 3, "researcher": 0, "partner": 1, "innovator": 0}},
-            {"label": "C", "text": "色んな角度から質問して、深く掘り下げたい", "scores": {"assistant": 0, "creator": 0, "researcher": 3, "partner": 0, "innovator": 0}},
-            {"label": "D", "text": "丁寧に話しかけて、いい関係を築きたい", "scores": {"assistant": 0, "creator": 0, "researcher": 0, "partner": 3, "innovator": 0}},
-            {"label": "E", "text": "AIの限界を試すような無茶振りもする", "scores": {"assistant": 0, "creator": 0, "researcher": 1, "partner": 0, "innovator": 3}},
-        ],
-    },
+    {"id": 1, "text": "やることリストを作るとスッキリする", "primary": "assistant", "reverse": False},
+    {"id": 2, "text": "SNSに載せる写真や文章にはこだわりたい", "primary": "creator", "reverse": False},
+    {"id": 3, "text": "気になったらとことん調べないと気が済まない", "primary": "researcher", "reverse": False},
+    {"id": 4, "text": "「聞き上手だね」って言われたことがある", "primary": "partner", "reverse": False},
+    {"id": 5, "text": "不便な仕組みを見ると、自動化できないか考えちゃう", "primary": "innovator", "reverse": False},
+    {"id": 6, "text": "マニュアル通りに進めると安心する", "primary": "assistant", "reverse": False},
+    {"id": 7, "text": "「それ面白いね！」って言われると最高にうれしい", "primary": "creator", "reverse": False},
+    {"id": 8, "text": "Wikipediaのリンクをたどって気づいたら1時間経ってた、はあるある", "primary": "researcher", "reverse": False},
+    {"id": 9, "text": "人の気持ちに興味がないと言われたことがある", "primary": "partner", "reverse": True},
+    {"id": 10, "text": "世の中の「当たり前」に疑問を感じることが多い", "primary": "innovator", "reverse": False},
+]
+
+# MBTI風4段階の回答選択肢と配点
+ANSWER_OPTIONS = [
+    {"label": "はい", "score": 3},
+    {"label": "ちょっとはい", "score": 2},
+    {"label": "ちょっといいえ", "score": 1},
+    {"label": "いいえ", "score": 0},
 ]
 
 RESULTS = {
     "assistant": {
         "id": "assistant",
-        "name": "効率化の達人！「AIアシスタント」タイプ",
+        "name": "最強の右腕！「AI事務総長」タイプ",
         "emoji": "briefcase",
         "color": "#2563eb",
         "color_light": "#dbeafe",
@@ -95,7 +58,7 @@ RESULTS = {
     },
     "creator": {
         "id": "creator",
-        "name": "アイデアの泉！「AIクリエイター」タイプ",
+        "name": "発想が止まらない！「AIアーティスト」タイプ",
         "emoji": "art",
         "color": "#7c3aed",
         "color_light": "#ede9fe",
@@ -113,7 +76,7 @@ RESULTS = {
     },
     "researcher": {
         "id": "researcher",
-        "name": "知識の探求者！「AIリサーチャー」タイプ",
+        "name": "沼の住人！「AI探偵」タイプ",
         "emoji": "mag",
         "color": "#059669",
         "color_light": "#d1fae5",
@@ -131,7 +94,7 @@ RESULTS = {
     },
     "partner": {
         "id": "partner",
-        "name": "心の通訳者！「AIパートナー」タイプ",
+        "name": "心の翻訳家！「AI相談役」タイプ",
         "emoji": "handshake",
         "color": "#d97706",
         "color_light": "#fef3c7",
@@ -149,7 +112,7 @@ RESULTS = {
     },
     "innovator": {
         "id": "innovator",
-        "name": "未来の開拓者！「AIイノベーター」タイプ",
+        "name": "常識ぶっ壊し系！「AIハッカー」タイプ",
         "emoji": "rocket",
         "color": "#dc2626",
         "color_light": "#fee2e2",
@@ -170,7 +133,7 @@ RESULTS = {
 
 @app.get("/", response_class=HTMLResponse)
 async def home(request: Request):
-    return templates.TemplateResponse(name="index.html", request=request, context={"questions": QUESTIONS, "ga_id": GA_MEASUREMENT_ID})
+    return templates.TemplateResponse(name="index.html", request=request, context={"questions": QUESTIONS, "answer_options": ANSWER_OPTIONS, "ga_id": GA_MEASUREMENT_ID})
 
 
 @app.get("/privacy", response_class=HTMLResponse)

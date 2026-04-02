@@ -202,72 +202,55 @@ body.result-body {
     line-height: 1.5;
 }
 
-/* --- Choice Buttons --- */
-.choices {
+/* --- Likert Buttons (MBTI style) --- */
+.likert-choices {
     display: flex;
-    flex-direction: column;
-    gap: 0.75rem;
+    gap: 0.5rem;
+    justify-content: center;
+    flex-wrap: wrap;
 }
 
-.choice-btn {
-    display: flex;
-    align-items: center;
-    gap: 1rem;
-    width: 100%;
+.likert-btn {
+    flex: 1;
+    min-width: 0;
     background: #fff;
     border: 2px solid #e2e8f0;
-    border-radius: 16px;
-    padding: 1rem 1.25rem;
+    border-radius: 14px;
+    padding: 0.85rem 0.5rem;
     cursor: pointer;
     transition: all 0.2s ease;
-    text-align: left;
-    font-size: 0.95rem;
-    color: #334155;
-    line-height: 1.5;
+    text-align: center;
+    font-size: 0.85rem;
+    font-weight: 600;
+    color: #475569;
+    line-height: 1.3;
 }
 
-.choice-btn:hover {
+.likert-btn:hover {
     border-color: #a78bfa;
     background: #faf5ff;
-    transform: translateY(-1px);
-    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.1);
+    transform: translateY(-2px);
+    box-shadow: 0 4px 12px rgba(124, 58, 237, 0.12);
 }
 
-.choice-btn:active {
+.likert-btn:active {
     transform: translateY(0);
 }
 
-.choice-btn.selected {
+.likert-btn.selected {
     border-color: #7c3aed;
     background: linear-gradient(135deg, #7c3aed, #2563eb);
     color: #fff;
     box-shadow: 0 4px 16px rgba(124, 58, 237, 0.3);
 }
 
-.choice-btn.selected .choice-label {
-    background: rgba(255, 255, 255, 0.25);
-    color: #fff;
-}
+/* First button (はい) slightly green tint */
+.likert-btn:first-child { border-color: #bbf7d0; }
+.likert-btn:first-child:hover { background: #f0fdf4; border-color: #4ade80; }
 
-.choice-label {
-    flex-shrink: 0;
-    width: 32px;
-    height: 32px;
-    display: flex;
-    align-items: center;
-    justify-content: center;
-    background: #f1f5f9;
-    border-radius: 10px;
-    font-size: 0.8rem;
-    font-weight: 700;
-    color: #64748b;
-    transition: all 0.2s ease;
-}
-
-.choice-text {
-    flex: 1;
-    font-weight: 500;
-}
+/* Last button (いいえ) slightly red tint */
+.likert-btn:last-child { border-color: #fecaca; }
+.likert-btn:last-child:hover { background: #fef2f2; border-color: #f87171; }
 
 /* --- Loading Screen --- */
 .loading-content {
@@ -770,10 +753,10 @@ body.result-body {
         font-size: 1.1rem;
     }
 
-    .choice-btn {
-        padding: 0.85rem 1rem;
-        font-size: 0.9rem;
-        border-radius: 14px;
+    .likert-btn {
+        padding: 0.75rem 0.35rem;
+        font-size: 0.8rem;
+        border-radius: 12px;
     }
 
     .result-container {
