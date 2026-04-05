@@ -1,7 +1,7 @@
 """AI活用タイプ診断 - あなたと相性最高のAIは？"""
 
 from fastapi import FastAPI, Request
-from fastapi.responses import HTMLResponse
+from fastapi.responses import HTMLResponse, Response
 from fastapi.staticfiles import StaticFiles
 from fastapi.templating import Jinja2Templates
 from pathlib import Path
@@ -168,6 +168,16 @@ async def home(request: Request):
     return templates.TemplateResponse(name="index.html", request=request, context={"questions": QUESTIONS, "answer_options": ANSWER_OPTIONS, "genres": GENRES, "ga_id": GA_MEASUREMENT_ID})
 
 
+@app.get("/about", response_class=HTMLResponse)
+async def about(request: Request):
+    return templates.TemplateResponse(name="about.html", request=request, context={"ga_id": GA_MEASUREMENT_ID})
+
+
+@app.get("/contact", response_class=HTMLResponse)
+async def contact(request: Request):
+    return templates.TemplateResponse(name="contact.html", request=request, context={"ga_id": GA_MEASUREMENT_ID})
+
+
 @app.get("/privacy", response_class=HTMLResponse)
 async def privacy(request: Request):
     return templates.TemplateResponse(name="privacy.html", request=request, context={"ga_id": GA_MEASUREMENT_ID})
@@ -176,6 +186,34 @@ async def privacy(request: Request):
 @app.get("/terms", response_class=HTMLResponse)
 async def terms(request: Request):
     return templates.TemplateResponse(name="terms.html", request=request, context={"ga_id": GA_MEASUREMENT_ID})
+
+
+SITE_URL = "https://ai-type-quiz.onrender.com"
+
+@app.get("/sitemap.xml")
+async def sitemap():
+    xml = f"""<?xml version="1.0" encoding="UTF-8"?>
+<urlset xmlns="http://www.sitemaps.org/schemas/sitemap/0.9">
+  <url><loc>{SITE_URL}/</loc><changefreq>weekly</changefreq><priority>1.0</priority></url>
+  <url><loc>{SITE_URL}/about</loc><changefreq>monthly</changefreq><priority>0.8</priority></url>
+  <url><loc>{SITE_URL}/contact</loc><changefreq>monthly</changefreq><priority>0.7</priority></url>
+  <url><loc>{SITE_URL}/privacy</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>{SITE_URL}/terms</loc><changefreq>monthly</changefreq><priority>0.5</priority></url>
+  <url><loc>{SITE_URL}/result/assistant</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>{SITE_URL}/result/creator</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>{SITE_URL}/result/researcher</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>{SITE_URL}/result/partner</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+  <url><loc>{SITE_URL}/result/innovator</loc><changefreq>monthly</changefreq><priority>0.9</priority></url>
+</urlset>"""
+    return Response(content=xml, media_type="application/xml")
+
+
+@app.get("/robots.txt")
+async def robots():
+    txt = f"""User-agent: *
+Allow: /
+Sitemap: {SITE_URL}/sitemap.xml"""
+    return Response(content=txt, media_type="text/plain")
 
 
 @app.get("/result/{type_id}", response_class=HTMLResponse)
