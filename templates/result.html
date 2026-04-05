@@ -9,13 +9,24 @@
     <meta property="og:description" content="{{ result.description[:100] }}">
     <meta property="og:type" content="website">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4552521005104138" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/static/css/style.css?v=3">
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
     {% if ga_id %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ ga_id }}');</script>
     {% endif %}
 </head>
 <body class="result-body">
+    <nav class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">AI活用タイプ診断</a>
+            <div class="nav-links">
+                <a href="/">ホーム</a>
+                <a href="/about">運営者情報</a>
+                <a href="/contact">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="result-container">
         <!-- Result Header -->
         <div class="result-header">
@@ -133,9 +144,13 @@
         <!-- Footer -->
         <footer class="footer">
             <div class="footer-links">
+                <a href="/about">運営者情報</a>
+                <span class="footer-separator">|</span>
                 <a href="/privacy">プライバシーポリシー</a>
                 <span class="footer-separator">|</span>
                 <a href="/terms">利用規約</a>
+                <span class="footer-separator">|</span>
+                <a href="/contact">お問い合わせ</a>
             </div>
             <p>&copy; 2026 AI活用タイプ診断</p>
         </footer>

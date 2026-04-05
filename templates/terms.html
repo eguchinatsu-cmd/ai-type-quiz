@@ -6,17 +6,28 @@
     <title>利用規約 - AI活用タイプ診断</title>
     <meta name="description" content="AI活用タイプ診断の利用規約">
     <script async src="https://pagead2.googlesyndication.com/pagead/js/adsbygoogle.js?client=ca-pub-4552521005104138" crossorigin="anonymous"></script>
-    <link rel="stylesheet" href="/static/css/style.css">
+    <link rel="stylesheet" href="/static/css/style.css?v=4">
     {% if ga_id %}
     <script async src="https://www.googletagmanager.com/gtag/js?id={{ ga_id }}"></script>
     <script>window.dataLayer=window.dataLayer||[];function gtag(){dataLayer.push(arguments);}gtag('js',new Date());gtag('config','{{ ga_id }}');</script>
     {% endif %}
 </head>
 <body class="result-body">
+    <nav class="site-nav">
+        <div class="nav-inner">
+            <a href="/" class="nav-logo">AI活用タイプ診断</a>
+            <div class="nav-links">
+                <a href="/">ホーム</a>
+                <a href="/about">運営者情報</a>
+                <a href="/contact">お問い合わせ</a>
+            </div>
+        </div>
+    </nav>
+
     <div class="legal-container">
         <div class="legal-card">
             <h1 class="legal-title">利用規約</h1>
-            <p class="legal-updated">最終更新日: 2026年4月2日</p>
+            <p class="legal-updated">最終更新日: 2026年4月5日</p>
 
             <div class="legal-section">
                 <h2>1. 診断結果の正確性について</h2>
@@ -45,8 +56,7 @@
 
             <div class="legal-section">
                 <h2>6. お問い合わせ</h2>
-                <p>本規約に関するお問い合わせは、下記メールアドレスまでお願いいたします。</p>
-                <p class="legal-contact">your-email@example.com</p>
+                <p>本規約に関するお問い合わせは、<a href="/contact">お問い合わせフォーム</a>よりお願いいたします。</p>
             </div>
         </div>
 
@@ -56,9 +66,13 @@
 
         <footer class="footer">
             <div class="footer-links">
+                <a href="/about">運営者情報</a>
+                <span class="footer-separator">|</span>
                 <a href="/privacy">プライバシーポリシー</a>
                 <span class="footer-separator">|</span>
                 <a href="/terms">利用規約</a>
+                <span class="footer-separator">|</span>
+                <a href="/contact">お問い合わせ</a>
             </div>
             <p>&copy; 2026 AI活用タイプ診断</p>
         </footer>
