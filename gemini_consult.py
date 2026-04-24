@@ -3,7 +3,9 @@ import json
 import os
 import urllib.request
 
-API_KEY = os.environ.get("GEMINI_API_KEY", "REDACTED_LEAKED_KEY")
+API_KEY = os.environ.get("GEMINI_API_KEY")
+if not API_KEY:
+    raise SystemExit("GEMINI_API_KEY environment variable is required")
 URL = f"https://generativelanguage.googleapis.com/v1beta/models/gemini-2.0-flash-lite:generateContent?key={API_KEY}"
 
 prompt = """

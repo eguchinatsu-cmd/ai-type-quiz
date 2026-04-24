@@ -2,3 +2,6 @@ __pycache__/
 *.pyc
 x_cookies.json
 x_cookies_raw.txt
+.env
+.env.*
+!.env.example
